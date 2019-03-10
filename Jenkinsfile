@@ -6,7 +6,6 @@ pipeline {
         stage('Jekyll Build') {
             steps {
                 checkout scm
-                sh 'bundle install'
                 sh 'make build'
             }
         }
