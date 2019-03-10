@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Deploy') {
             agent {
-                docker 'eeacms/rsync:1.2'
+                docker 'ditemikuthesisdemo/p2-deploy:latest'
             }
             steps {
                 sh 'make deploy'
