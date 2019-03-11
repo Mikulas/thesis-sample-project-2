@@ -27,7 +27,7 @@ steps:
   - make deploy
 
 volumes:
-- name: site
+- name: vendor
   temp: {}
 
 ---
