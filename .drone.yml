@@ -8,9 +8,6 @@ steps:
   - name: vendor
     path: /drone/src/vendor
   commands:
-  - bundle install
-  - ls -lA /drone/src
-  - chmod ugo+rwX /drone/src/_site
   - make build
 
 - name: deploy
