@@ -12,8 +12,9 @@ blocks:
         - name: composer
           commands:
           - checkout
+          - phpbrew switch php-7.1
           - sudo apt-get install -y --no-install-recommends composer
-          - cache restore vendor-$SEMAPHORE_GIT_BRANCH-$(checksum composer.lock),gems-$SEMAPHORE_GIT_BRANCH-,gems-master-
+          - cache restore vendor-$SEMAPHORE_GIT_BRANCH-$(checksum composer.lock),vendor-$SEMAPHORE_GIT_BRANCH-,vendor-master-
           - make build
           - cache store vendor-$SEMAPHORE_GIT_BRANCH-$(checksum composer.lock) vendor
 
@@ -23,6 +24,7 @@ blocks:
       - name: build
         commands:
           - checkout
-          - cache restore vendor-$SEMAPHORE_GIT_BRANCH-$(checksum composer.lock),gems-$SEMAPHORE_GIT_BRANCH-,gems-master-
+          - cache restore vendor-$SEMAPHORE_GIT_BRANCH-$(checksum composer.lock),vendor-$SEMAPHORE_GIT_BRANCH-,vendor-master-
+          - phpbrew switch php-7.1
           - make build
           - echo "Deploy step would be here"
