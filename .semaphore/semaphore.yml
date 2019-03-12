@@ -12,7 +12,7 @@ blocks:
         - name: composer
           commands:
           - checkout
-          - apt-get install -y --no-install-recommends composer
+          - sudo apt-get install -y --no-install-recommends composer
           - cache restore vendor-$SEMAPHORE_GIT_BRANCH-$(checksum composer.lock),gems-$SEMAPHORE_GIT_BRANCH-,gems-master-
           - make build
           - cache store vendor-$SEMAPHORE_GIT_BRANCH-$(checksum composer.lock) vendor
