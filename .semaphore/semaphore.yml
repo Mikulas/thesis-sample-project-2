@@ -1,0 +1,28 @@
+version: v1.0
+name: P2 Build and Deploy
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+
+blocks:
+  - name: Setup
+    task:
+      jobs:
+        - name: composer
+          commands:
+          - checkout
+          - apt-get install -y --no-install-recommends composer
+          - cache restore vendor-$SEMAPHORE_GIT_BRANCH-$(checksum composer.lock),gems-$SEMAPHORE_GIT_BRANCH-,gems-master-
+          - make build
+          - cache store vendor-$SEMAPHORE_GIT_BRANCH-$(checksum composer.lock) vendor
+
+  - name: Build
+    task:
+      jobs:
+      - name: build
+        commands:
+          - checkout
+          - cache restore vendor-$SEMAPHORE_GIT_BRANCH-$(checksum composer.lock),gems-$SEMAPHORE_GIT_BRANCH-,gems-master-
+          - make build
+          - echo "Deploy step would be here"
