@@ -6,10 +6,10 @@ agent:
     os_image: ubuntu1804
 
 blocks:
-  - name: Pipeline
+  - name: Build
     task:
       jobs:
-        - name: build
+        - name: composer
           commands:
           - checkout
           - phpbrew switch php-7.1
@@ -19,6 +19,11 @@ blocks:
           - make build
           - cache store vendor-$SEMAPHORE_GIT_BRANCH-$(checksum composer.lock) vendor
 
+  - name: Deploy
+    task:
+      jobs:
         - name: deploy
           commands:
+            - checkout
+            - cache restore vendor-$SEMAPHORE_GIT_BRANCH-$(checksum composer.lock),vendor-$SEMAPHORE_GIT_BRANCH-,vendor-master-
             - echo "Deploy step would be here"
